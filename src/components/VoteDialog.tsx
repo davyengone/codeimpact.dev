@@ -106,10 +106,10 @@ export default function VoteDialog({ technologyId, technologyName, children, onV
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="dark:text-gray-100">
             {existingVote ? 'Update your vote' : 'Vote'} for {technologyName}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="dark:text-gray-300">
             {existingVote
               ? `Update your impact assessment for ${technologyName}.`
               : `Share your experience with ${technologyName} and estimate its economic impact value.`
@@ -118,13 +118,13 @@ export default function VoteDialog({ technologyId, technologyName, children, onV
         </DialogHeader>
 
         {loadingVote ? (
-          <div className="py-6 text-center text-gray-500">
+          <div className="py-6 text-center text-gray-500 dark:text-gray-400">
             Loading your existing vote...
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <label htmlFor="impact" className="text-sm font-medium">
+              <label htmlFor="impact" className="text-sm font-medium dark:text-gray-200">
                 Economic Impact (in USD)
               </label>
               <Input
@@ -137,13 +137,13 @@ export default function VoteDialog({ technologyId, technologyName, children, onV
                 min="0"
                 step="1000"
               />
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Estimate how much economic value this technology has brought to you or your organization
               </p>
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="reasoning" className="text-sm font-medium">
+              <label htmlFor="reasoning" className="text-sm font-medium dark:text-gray-200">
                 Your Experience (Optional)
               </label>
               <Textarea
@@ -156,7 +156,7 @@ export default function VoteDialog({ technologyId, technologyName, children, onV
             </div>
 
             {submitError && (
-              <div className="text-sm text-red-600 bg-red-50 p-2 rounded">
+              <div className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 p-2 rounded">
                 {submitError}
               </div>
             )}

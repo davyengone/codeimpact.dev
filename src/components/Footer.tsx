@@ -2,24 +2,24 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200">
+    <footer className="bg-gray-50 border-t border-gray-200 dark:bg-gray-900 dark:border-gray-800">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Copyright and Link */}
-          <div className="flex items-center gap-1 text-sm text-gray-600">
+          <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400">
             <span>Copyright © </span>
             <Link
               href="https://davy.build"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-blue-600 hover:text-blue-800 transition-colors"
+              className="font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
             >
               davy.build
             </Link>
           </div>
 
           {/* Mission Statement */}
-          <div className="text-sm text-gray-500 italic">
+          <div className="text-sm text-gray-500 dark:text-gray-400 italic">
             &quot;Making other people shine&quot;
           </div>
 
@@ -29,7 +29,7 @@ export default function Footer() {
               href="https://x.com/davybuild"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-blue-600 transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
             >
               <svg
                 className="w-4 h-4"

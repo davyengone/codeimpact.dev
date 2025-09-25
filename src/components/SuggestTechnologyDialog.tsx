@@ -124,19 +124,19 @@ export default function SuggestTechnologyDialog({
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Lightbulb className="h-5 w-5 text-blue-600" />
+          <DialogTitle className="flex items-center gap-2 dark:text-gray-100">
+            <Lightbulb className="h-5 w-5 text-blue-600 dark:text-blue-400" />
             Suggest New Technology
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="dark:text-gray-300">
             Suggest a new technology for the community to vote on. Your suggestion will be reviewed by an admin before being added to the platform.
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-sm font-medium">
-              Technology Name <span className="text-red-500">*</span>
+            <Label htmlFor="name" className="text-sm font-medium dark:text-gray-200">
+              Technology Name <span className="text-red-500 dark:text-red-400">*</span>
             </Label>
             <Input
               id="name"
@@ -148,7 +148,7 @@ export default function SuggestTechnologyDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description" className="text-sm font-medium">
+            <Label htmlFor="description" className="text-sm font-medium dark:text-gray-200">
               Description
             </Label>
             <Textarea
@@ -162,8 +162,8 @@ export default function SuggestTechnologyDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="category" className="text-sm font-medium">
-              Category <span className="text-red-500">*</span>
+            <Label htmlFor="category" className="text-sm font-medium dark:text-gray-200">
+              Category <span className="text-red-500 dark:text-red-400">*</span>
             </Label>
             <Select
               value={formData.category}
@@ -184,13 +184,13 @@ export default function SuggestTechnologyDialog({
 
           <div className="border-t pt-4 space-y-4">
             <div className="flex items-center gap-2">
-              <Lightbulb className="h-4 w-4 text-blue-600" />
-              <Label className="text-sm font-medium">Your Initial Vote</Label>
+              <Lightbulb className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+              <Label className="text-sm font-medium dark:text-gray-200">Your Initial Vote</Label>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="impactValue" className="text-sm font-medium">
-                Economic Impact Value (in dollars) <span className="text-red-500">*</span>
+              <Label htmlFor="impactValue" className="text-sm font-medium dark:text-gray-200">
+                Economic Impact Value (in dollars) <span className="text-red-500 dark:text-red-400">*</span>
               </Label>
               <Input
                 id="impactValue"
@@ -202,13 +202,13 @@ export default function SuggestTechnologyDialog({
                 placeholder="e.g., 50000"
                 className="w-full"
               />
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Estimate how much economic value this technology has provided to you or your organization
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="reasoning" className="text-sm font-medium">
+              <Label htmlFor="reasoning" className="text-sm font-medium dark:text-gray-200">
                 Reasoning
               </Label>
               <Textarea

@@ -139,12 +139,12 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white smooth-scroll">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 smooth-scroll">
       <Header />
 
       {/* Fixed Search Bar for authenticated users */}
       <SignedIn>
-        <div className="fixed top-16 left-0 right-0 z-40 bg-gradient-to-r from-white/95 to-gray-50/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
+        <div className="fixed top-16 left-0 right-0 z-40 bg-gradient-to-r from-white/95 to-gray-50/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm dark:from-gray-900/95 dark:to-gray-800/95 dark:border-gray-700/50">
           <div className="container mx-auto px-4 py-4">
             <div className="max-w-4xl mx-auto space-y-3">
               {/* Search and Suggest Row */}
@@ -157,14 +157,14 @@ export default function Home() {
                     placeholder="Search technologies or categories..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-12 pr-12 h-11 bg-white border-gray-200 focus:border-blue-300 focus:ring-blue-200 rounded-xl shadow-sm text-base placeholder:text-gray-400"
+                    className="pl-12 pr-12 h-11 bg-white border-gray-200 focus:border-blue-300 focus:ring-blue-200 rounded-xl shadow-sm text-base placeholder:text-gray-400 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-blue-400 dark:focus:ring-blue-300"
                   />
                   {searchTerm && (
                     <button
                       onClick={() => setSearchTerm('')}
-                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-400 transition-colors"
                     >
-                      <div className="w-5 h-5 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center text-xs font-medium">
+                      <div className="w-5 h-5 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 flex items-center justify-center text-xs font-medium">
                         ×
                       </div>
                     </button>
@@ -174,7 +174,7 @@ export default function Home() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="h-11 px-4 border-2 border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 font-medium whitespace-nowrap"
+                    className="h-11 px-4 border-2 border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 font-medium whitespace-nowrap dark:border-blue-700 dark:text-blue-400 dark:hover:bg-blue-950 dark:hover:border-blue-600"
                   >
                     <Plus className="h-4 w-4 sm:mr-2" />
                     <span className="hidden sm:inline">Suggest</span>
@@ -188,9 +188,9 @@ export default function Home() {
                   <div className="w-6 h-6 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
                     <Search className="h-3 w-3 text-white" />
                   </div>
-                  <h2 className="text-lg font-bold text-gray-900">Technology Rankings</h2>
+                  <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Technology Rankings</h2>
                 </div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
                   {loading ? 'Loading...' : `${filteredTechnologies.length} technologies`}
                 </div>
               </div>
@@ -211,7 +211,7 @@ export default function Home() {
             </span>{" "}
             of open source.
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
             Community-driven platform where developers share real experiences and quantify
             the economic value that open source technologies bring to their work and organizations.
           </p>
@@ -228,22 +228,22 @@ export default function Home() {
 
       {/* Categories Section - Only show when signed out */}
       <SignedOut>
-        <section id="categories-section" className="py-16 px-4 bg-white">
+        <section id="categories-section" className="py-16 px-4 bg-white dark:bg-gray-900">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">We track it all!</h2>
-            <p className="text-lg text-gray-600">From web frameworks to AI tools, discover impact across all categories.</p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">We track it all!</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">From web frameworks to AI tools, discover impact across all categories.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
             {impactCategories.map((category, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all duration-300 border-0 overflow-hidden">
+              <Card key={index} className="hover:shadow-lg transition-all duration-300 border-0 overflow-hidden dark:bg-gray-800">
                 <div className={`h-2 bg-gradient-to-r ${category.color}`} />
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-xl font-semibold text-gray-900">
+                  <CardTitle className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                     {category.title}
                   </CardTitle>
-                  <CardDescription className="text-gray-600">
+                  <CardDescription className="text-gray-600 dark:text-gray-300">
                     {category.description}
                   </CardDescription>
                 </CardHeader>
@@ -252,7 +252,7 @@ export default function Home() {
                     {category.technologies.map((tech, techIndex) => (
                       <span
                         key={techIndex}
-                        className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium"
+                        className="px-3 py-1 bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 rounded-full text-sm font-medium"
                       >
                         {tech}
                       </span>
@@ -268,7 +268,7 @@ export default function Home() {
 
       {/* Top Technologies Section */}
       <SignedIn>
-        <section className="pt-40 pb-16 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <section className="pt-40 pb-16 px-4 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
           <div className="container mx-auto">
             <div className="max-w-4xl mx-auto h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin">
               <div className="space-y-4">
@@ -278,7 +278,7 @@ export default function Home() {
                   const maxImpact = Math.max(...filteredTechnologies.map(t => t.total_impact), 1)
 
                   return (
-                    <Card key={tech.id} className="tech-card hover:shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+                    <Card key={tech.id} className="tech-card hover:shadow-lg border-0 bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 dark:hover:shadow-xl">
                       <CardHeader className="pb-3">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4">
@@ -286,8 +286,8 @@ export default function Home() {
                               #{rank}
                             </div>
                             <div>
-                              <CardTitle className="text-2xl text-gray-900 mb-1">{tech.name}</CardTitle>
-                              <CardDescription className="text-gray-600 text-base">
+                              <CardTitle className="text-2xl text-gray-900 dark:text-gray-100 mb-1">{tech.name}</CardTitle>
+                              <CardDescription className="text-gray-600 dark:text-gray-300 text-base">
                                 {tech.vote_count} community contributions
                               </CardDescription>
                             </div>
@@ -296,7 +296,7 @@ export default function Home() {
                             <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                               {formatCurrency(tech.total_impact)}
                             </div>
-                            <div className="text-sm text-gray-500 font-medium">
+                            <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">
                               Economic Impact
                             </div>
                           </div>
@@ -305,7 +305,7 @@ export default function Home() {
                       <CardContent className="pt-0">
                         <div className="flex items-center justify-between">
                           <div className="flex-1 mr-4">
-                            <div className="w-full bg-gray-200 rounded-full h-3 shadow-inner">
+                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 shadow-inner">
                               <div
                                 className={`bg-gradient-to-r ${color} h-3 rounded-full progress-bar shadow-sm`}
                                 style={{ width: `${maxImpact > 0 ? (tech.total_impact / maxImpact) * 100 : 0}%` }}
@@ -320,7 +320,7 @@ export default function Home() {
                             <Button
                               variant="outline"
                               size="sm"
-                              className="border-2 border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 font-medium"
+                              className="border-2 border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 font-medium dark:border-blue-700 dark:text-blue-400 dark:hover:bg-blue-950 dark:hover:border-blue-600"
                             >
                               Vote
                             </Button>
@@ -335,8 +335,8 @@ export default function Home() {
               {searchTerm && filteredTechnologies.length === 0 && (
                 <div className="text-center py-12">
                   <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No technologies found</h3>
-                  <p className="text-gray-500">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No technologies found</h3>
+                  <p className="text-gray-500 dark:text-gray-400">
                     Try adjusting your search or browse all technologies.
                   </p>
                   <Button
@@ -354,29 +354,29 @@ export default function Home() {
       </SignedIn>
 
       <SignedOut>
-        <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
           <div className="container mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Top Impact Rankings</h2>
-              <p className="text-lg text-gray-600">Technologies making the biggest economic difference right now.</p>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Top Impact Rankings</h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300">Technologies making the biggest economic difference right now.</p>
             </div>
 
             {loading ? (
               <div className="max-w-4xl mx-auto space-y-4">
                 {[...Array(6)].map((_, i) => (
-                  <Card key={i} className="border-0 bg-white/80">
+                  <Card key={i} className="border-0 bg-white/80 dark:bg-gray-800/80">
                     <CardHeader className="pb-3">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4">
-                          <div className="w-14 h-14 rounded-2xl bg-gray-200 animate-pulse" />
+                          <div className="w-14 h-14 rounded-2xl bg-gray-200 dark:bg-gray-700 animate-pulse" />
                           <div className="space-y-2">
-                            <div className="h-6 w-32 bg-gray-200 rounded animate-pulse" />
-                            <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
+                            <div className="h-6 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                            <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
                           </div>
                         </div>
                         <div className="text-right space-y-2">
-                          <div className="h-8 w-16 bg-gray-200 rounded animate-pulse" />
-                          <div className="h-4 w-20 bg-gray-200 rounded animate-pulse" />
+                          <div className="h-8 w-16 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                          <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
                         </div>
                       </div>
                     </CardHeader>
@@ -385,7 +385,7 @@ export default function Home() {
               </div>
             ) : error ? (
               <div className="text-center py-12">
-                <p className="text-red-600 mb-4">Error loading technologies: {error}</p>
+                <p className="text-red-600 dark:text-red-400 mb-4">Error loading technologies: {error}</p>
                 <Button onClick={refetch} variant="outline">
                   Try Again
                 </Button>
@@ -399,7 +399,7 @@ export default function Home() {
                     const maxImpact = Math.max(...filteredTechnologies.map(t => t.total_impact), 1)
 
                     return (
-                      <Card key={tech.id} className="tech-card hover:shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+                      <Card key={tech.id} className="tech-card hover:shadow-lg border-0 bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 dark:hover:shadow-xl">
                         <CardHeader className="pb-3">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-4">
@@ -407,8 +407,8 @@ export default function Home() {
                                 #{rank}
                               </div>
                               <div>
-                                <CardTitle className="text-2xl text-gray-900 mb-1">{tech.name}</CardTitle>
-                                <CardDescription className="text-gray-600 text-base">
+                                <CardTitle className="text-2xl text-gray-900 dark:text-gray-100 mb-1">{tech.name}</CardTitle>
+                                <CardDescription className="text-gray-600 dark:text-gray-300 text-base">
                                   {tech.vote_count} community contributions
                                 </CardDescription>
                               </div>
@@ -417,7 +417,7 @@ export default function Home() {
                               <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                                 {formatCurrency(tech.total_impact)}
                               </div>
-                              <div className="text-sm text-gray-500 font-medium">
+                              <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">
                                 Economic Impact
                               </div>
                             </div>
@@ -426,7 +426,7 @@ export default function Home() {
                         <CardContent className="pt-0">
                           <div className="flex items-center justify-between">
                             <div className="flex-1 mr-4">
-                              <div className="w-full bg-gray-200 rounded-full h-3 shadow-inner">
+                              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 shadow-inner">
                                 <div
                                   className={`bg-gradient-to-r ${color} h-3 rounded-full progress-bar shadow-sm`}
                                   style={{ width: `${maxImpact > 0 ? (tech.total_impact / maxImpact) * 100 : 0}%` }}
@@ -443,8 +443,8 @@ export default function Home() {
                 {searchTerm && filteredTechnologies.length === 0 && (
                   <div className="text-center py-12">
                     <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No technologies found</h3>
-                    <p className="text-gray-500">
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No technologies found</h3>
+                    <p className="text-gray-500 dark:text-gray-400">
                       Try adjusting your search or browse all technologies.
                     </p>
                     <Button
@@ -459,11 +459,11 @@ export default function Home() {
               </div>
             )}
 
-            <div className="text-center mt-16 p-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-100">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+            <div className="text-center mt-16 p-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-2xl border border-blue-100 dark:border-blue-800">
+              <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
                 Ready to share your experience?
               </h3>
-              <p className="text-gray-600 mb-6 text-lg">
+              <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">
                 Join our community and help quantify the real impact of open source technologies.
               </p>
               <SignInButton mode="modal">

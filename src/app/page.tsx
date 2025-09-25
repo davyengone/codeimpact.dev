@@ -218,7 +218,7 @@ export default function Home() {
           <SignedOut>
             <SignInButton mode="modal">
               <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg">
-                Start Contributing
+                Share Your Impact
               </Button>
             </SignInButton>
           </SignedOut>
@@ -461,14 +461,14 @@ export default function Home() {
 
             <div className="text-center mt-16 p-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-2xl border border-blue-100 dark:border-blue-800">
               <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                Ready to share your experience?
+                How much have you made with open source?
               </h3>
               <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">
-                Join our community and help quantify the real impact of open source technologies.
+                Share the economic value open source technologies have brought to your career or business.
               </p>
               <SignInButton mode="modal">
                 <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3">
-                  Sign in with GitHub
+                  Add Your Impact
                 </Button>
               </SignInButton>
             </div>

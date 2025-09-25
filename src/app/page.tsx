@@ -218,7 +218,7 @@ export default function Home() {
           <SignedOut>
             <SignInButton mode="modal">
               <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg">
-                Share Your Impact
+                How much have you made with open source?
               </Button>
             </SignInButton>
           </SignedOut>

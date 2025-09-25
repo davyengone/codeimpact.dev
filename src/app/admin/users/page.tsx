@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { supabase } from '@/lib/supabase'
+import { supabase, Technology } from '@/lib/supabase'
 import { toast } from 'sonner'
 import { Search, Trash2, Users, Vote, DollarSign } from 'lucide-react'
 
@@ -72,7 +72,7 @@ export default function UsersPage() {
 
       votes?.forEach(vote => {
         const userId = vote.user_id
-        const techName = (vote.technologies as any)?.name || 'Unknown'
+        const techName = (vote.technologies as unknown as Technology)?.name || 'Unknown'
 
         if (userMap.has(userId)) {
           const existing = userMap.get(userId)!

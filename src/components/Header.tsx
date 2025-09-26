@@ -1,14 +1,15 @@
 'use client'
 
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs"
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { useIsAdmin } from "@/lib/admin"
 import Link from "next/link"
-import { Settings } from "lucide-react"
+import { Settings, User } from "lucide-react"
 import ThemeToggle from "@/components/ThemeToggle"
 
 export default function Header() {
   const { isAdmin } = useIsAdmin()
+  const { user } = useUser()
 
   return (
     <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 shadow-sm dark:bg-gray-900/95 dark:border-gray-800 dark:supports-[backdrop-filter]:bg-gray-900/80">
@@ -51,6 +52,16 @@ export default function Header() {
             </SignInButton>
           </SignedOut>
           <SignedIn>
+            <Link href={`/profile/${user?.id}`}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
+              >
+                <User className="h-4 w-4 mr-1" />
+                My Profile
+              </Button>
+            </Link>
             {isAdmin && (
               <Link href="/admin">
                 <Button

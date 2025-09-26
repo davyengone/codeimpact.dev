@@ -1,0 +1,26 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9333ea;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="15" fill="url(#gradient)" stroke="none"/>
+
+  <!-- Trending up arrow/chart icon -->
+  <g transform="translate(6, 6)">
+    <!-- Chart line -->
+    <path d="M3 15 L7 11 L11 13 L19 5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- Arrow head -->
+    <path d="M15 5 L19 5 L19 9" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- Data points -->
+    <circle cx="3" cy="15" r="2" fill="white"/>
+    <circle cx="7" cy="11" r="2" fill="white"/>
+    <circle cx="11" cy="13" r="2" fill="white"/>
+    <circle cx="19" cy="5" r="2" fill="white"/>
+  </g>
+</svg>

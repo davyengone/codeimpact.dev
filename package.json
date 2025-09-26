@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "migrate:technologies": "node scripts/migrate.js",
+    "migrate:text-ids": "node scripts/migrate-to-text-ids.js"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.32.2",
@@ -18,6 +20,7 @@
     "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.2",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.544.0",
     "next": "15.5.4",

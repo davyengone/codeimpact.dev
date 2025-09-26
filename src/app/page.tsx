@@ -11,8 +11,11 @@ import SuggestTechnologyDialog from "@/components/SuggestTechnologyDialog"
 import { useTechnologies } from "@/hooks/useTechnologies"
 import { useOptimisticUpdates } from "@/hooks/useOptimisticUpdates"
 import { useEffect, useState } from "react"
-import { Search, ChevronDown, Plus } from "lucide-react"
+import { Search, Plus } from "lucide-react"
 import { formatCurrency } from "@/lib/formatRevenue"
+import { createSlug } from "@/lib/slug"
+import Link from "next/link"
+import { motion } from "framer-motion"
 
 const technologyColors = [
   "from-blue-500 to-cyan-400",
@@ -26,6 +29,28 @@ const technologyColors = [
   "from-orange-500 to-red-400",
   "from-teal-500 to-cyan-400"
 ]
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94] as const
+    }
+  }
+}
 
 const impactCategories = [
   {
@@ -72,7 +97,7 @@ export default function Home() {
   const { isSignedIn } = useUser()
 
   // State for scroll and search functionality
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [, setIsScrolled] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [filteredTechnologies, setFilteredTechnologies] = useState(optimisticTechnologies)
 
@@ -203,7 +228,12 @@ export default function Home() {
       {/* Hero Section - Only show when signed out */}
       <SignedOut>
         <section id="hero-section" className="relative py-20 px-4">
-        <div className="container mx-auto text-center">
+        <motion.div
+          className="container mx-auto text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Discover the{" "}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -222,7 +252,7 @@ export default function Home() {
               </Button>
             </SignInButton>
           </SignedOut>
-        </div>
+        </motion.div>
         </section>
       </SignedOut>
 
@@ -235,9 +265,20 @@ export default function Home() {
             <p className="text-lg text-gray-600 dark:text-gray-300">From web frameworks to AI tools, discover impact across all categories.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {impactCategories.map((category, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all duration-300 border-0 overflow-hidden dark:bg-gray-800">
+              <motion.div
+                key={index}
+                variants={cardVariants}
+                whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Card className="hover:shadow-lg transition-all duration-300 border-0 overflow-hidden dark:bg-gray-800">
                 <div className={`h-2 bg-gradient-to-r ${category.color}`} />
                 <CardHeader className="pb-3">
                   <CardTitle className="text-xl font-semibold text-gray-900 dark:text-gray-100">
@@ -260,8 +301,9 @@ export default function Home() {
                   </div>
                 </CardContent>
               </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
         </section>
       </SignedOut>
@@ -271,66 +313,74 @@ export default function Home() {
         <section className="pt-40 pb-16 px-4 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
           <div className="container mx-auto">
             <div className="max-w-4xl mx-auto h-[calc(100vh-16rem)] overflow-y-auto scrollbar-thin">
-              <div className="space-y-4">
+              <motion.div
+                className="space-y-4"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
                 {filteredTechnologies.map((tech, index) => {
                   const rank = index + 1
                   const color = technologyColors[index % technologyColors.length]
-                  const maxImpact = Math.max(...filteredTechnologies.map(t => t.total_impact), 1)
 
                   return (
-                    <Card key={tech.id} className="tech-card hover:shadow-lg border-0 bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 dark:hover:shadow-xl">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-4">
-                            <div className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-r ${color} text-white font-bold text-lg shadow-lg`}>
-                              #{rank}
+                    <motion.div
+                      key={tech.id}
+                      variants={cardVariants}
+                    >
+                      <Card className="tech-card hover:shadow-lg border-0 bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 dark:hover:shadow-xl transition-all">
+                        <CardHeader className="pb-3">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-4">
+                              <div className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-r ${color} text-white font-bold text-lg shadow-lg`}>
+                                #{rank}
+                              </div>
+                              <div>
+                                <CardTitle className="text-2xl text-gray-900 dark:text-gray-100 mb-1">
+                                  {tech.name}
+                                </CardTitle>
+                                <CardDescription className="text-gray-600 dark:text-gray-300 text-base">
+                                  {tech.vote_count} community contributions
+                                </CardDescription>
+                              </div>
                             </div>
-                            <div>
-                              <CardTitle className="text-2xl text-gray-900 dark:text-gray-100 mb-1">{tech.name}</CardTitle>
-                              <CardDescription className="text-gray-600 dark:text-gray-300 text-base">
-                                {tech.vote_count} community contributions
-                              </CardDescription>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                              {formatCurrency(tech.total_impact)}
-                            </div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                              Economic Impact
-                            </div>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="pt-0">
-                        <div className="flex items-center justify-between">
-                          <div className="flex-1 mr-4">
-                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 shadow-inner">
-                              <div
-                                className={`bg-gradient-to-r ${color} h-3 rounded-full progress-bar shadow-sm`}
-                                style={{ width: `${maxImpact > 0 ? (tech.total_impact / maxImpact) * 100 : 0}%` }}
-                              />
+                            <div className="text-right">
+                              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                {formatCurrency(tech.total_impact)}
+                              </div>
+                              <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                                Economic Impact
+                              </div>
                             </div>
                           </div>
-                          <VoteDialog
-                            technologyId={tech.id}
-                            technologyName={tech.name}
-                            onVoteSuccess={handleVoteSuccess}
-                          >
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="border-2 border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 font-medium dark:border-blue-700 dark:text-blue-400 dark:hover:bg-blue-950 dark:hover:border-blue-600"
+                        </CardHeader>
+                        <CardContent className="pt-0">
+                          <div className="flex items-center justify-between">
+                            <Link href={`/${createSlug(tech.name)}`}>
+                              <div className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium transition-colors cursor-pointer">
+                                See more...
+                              </div>
+                            </Link>
+                            <VoteDialog
+                              technologyId={tech.id}
+                              technologyName={tech.name}
+                              onVoteSuccess={handleVoteSuccess}
                             >
-                              Vote
-                            </Button>
-                          </VoteDialog>
-                        </div>
-                      </CardContent>
-                    </Card>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="border-2 border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 font-medium dark:border-blue-700 dark:text-blue-400 dark:hover:bg-blue-950 dark:hover:border-blue-600"
+                              >
+                                Vote
+                              </Button>
+                            </VoteDialog>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   )
                 })}
-              </div>
+              </motion.div>
 
               {searchTerm && filteredTechnologies.length === 0 && (
                 <div className="text-center py-12">
@@ -392,53 +442,61 @@ export default function Home() {
               </div>
             ) : (
               <div className="max-w-4xl mx-auto">
-                <div className="space-y-4">
+                <motion.div
+                  className="space-y-4"
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
                   {filteredTechnologies.map((tech, index) => {
                     const rank = index + 1
                     const color = technologyColors[index % technologyColors.length]
-                    const maxImpact = Math.max(...filteredTechnologies.map(t => t.total_impact), 1)
 
                     return (
-                      <Card key={tech.id} className="tech-card hover:shadow-lg border-0 bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 dark:hover:shadow-xl">
-                        <CardHeader className="pb-3">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-4">
-                              <div className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-r ${color} text-white font-bold text-lg shadow-lg`}>
-                                #{rank}
+                      <motion.div
+                        key={tech.id}
+                        variants={cardVariants}
+                      >
+                        <Card className="tech-card hover:shadow-lg border-0 bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 dark:hover:shadow-xl transition-all">
+                          <CardHeader className="pb-3">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-4">
+                                <div className={`flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-r ${color} text-white font-bold text-lg shadow-lg`}>
+                                  #{rank}
+                                </div>
+                                <div>
+                                  <CardTitle className="text-2xl text-gray-900 dark:text-gray-100 mb-1">
+                                    {tech.name}
+                                  </CardTitle>
+                                  <CardDescription className="text-gray-600 dark:text-gray-300 text-base">
+                                    {tech.vote_count} community contributions
+                                  </CardDescription>
+                                </div>
                               </div>
-                              <div>
-                                <CardTitle className="text-2xl text-gray-900 dark:text-gray-100 mb-1">{tech.name}</CardTitle>
-                                <CardDescription className="text-gray-600 dark:text-gray-300 text-base">
-                                  {tech.vote_count} community contributions
-                                </CardDescription>
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                                {formatCurrency(tech.total_impact)}
-                              </div>
-                              <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                                Economic Impact
-                              </div>
-                            </div>
-                          </div>
-                        </CardHeader>
-                        <CardContent className="pt-0">
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1 mr-4">
-                              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 shadow-inner">
-                                <div
-                                  className={`bg-gradient-to-r ${color} h-3 rounded-full progress-bar shadow-sm`}
-                                  style={{ width: `${maxImpact > 0 ? (tech.total_impact / maxImpact) * 100 : 0}%` }}
-                                />
+                              <div className="text-right">
+                                <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                  {formatCurrency(tech.total_impact)}
+                                </div>
+                                <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                                  Economic Impact
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </CardContent>
-                      </Card>
+                          </CardHeader>
+                          <CardContent className="pt-0">
+                            <div className="flex items-center justify-between">
+                              <Link href={`/${createSlug(tech.name)}`}>
+                                <div className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium transition-colors cursor-pointer">
+                                  See more...
+                                </div>
+                              </Link>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
                     )
                   })}
-                </div>
+                </motion.div>
 
                 {searchTerm && filteredTechnologies.length === 0 && (
                   <div className="text-center py-12">

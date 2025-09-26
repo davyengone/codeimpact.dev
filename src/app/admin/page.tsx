@@ -9,7 +9,7 @@ import { formatCurrency } from '@/lib/formatRevenue'
 
 export default function AdminDashboard() {
   const { technologies, loading: techLoading } = useTechnologies()
-  const { votes, loading: votesLoading } = useVotes()
+  const { loading: votesLoading } = useVotes()
 
   const stats = [
     {

@@ -71,6 +71,7 @@ export default function TechnologiesPage() {
       loadTechnologies()
     } catch (error) {
       // Error is handled by the hook
+      console.log({error})
     }
   }
 
@@ -91,6 +92,7 @@ export default function TechnologiesPage() {
         loadTechnologies()
       } catch (error) {
         // Error is handled by the hook
+      console.log({error})
       }
     }
   }

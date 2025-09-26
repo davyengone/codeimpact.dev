@@ -134,6 +134,7 @@ export default function CategoriesPage() {
         // For now, we just show a message
         toast.error('Delete functionality requires migrating technologies first')
       } catch (error) {
+        console.log({error})
         toast.error('Failed to delete category')
       } finally {
         setActionLoading(false)

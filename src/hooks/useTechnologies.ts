@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
+import { slugToName } from '@/lib/slug'
 
 export interface TechnologyRanking {
   id: number
@@ -84,6 +85,48 @@ export function useTechnologyById(id: number) {
       fetchTechnology()
     }
   }, [id])
+
+  return {
+    technology,
+    loading,
+    error
+  }
+}
+
+export function useTechnologyBySlug(slug: string) {
+  const [technology, setTechnology] = useState<TechnologyRanking | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchTechnology = async () => {
+      try {
+        setLoading(true)
+        // Convert slug back to name
+        const name = slugToName(slug)
+
+        const { data, error } = await supabase
+          .from('technology_rankings')
+          .select('*')
+          .ilike('name', name)
+          .single()
+
+        if (error) {
+          throw error
+        }
+
+        setTechnology(data)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    if (slug) {
+      fetchTechnology()
+    }
+  }, [slug])
 
   return {
     technology,
